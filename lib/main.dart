@@ -1,17 +1,20 @@
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:convert';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_sunmi_printer/flutter_sunmi_printer.dart';
 import 'package:flutter/material.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
+import 'package:qr_flutter/qr_flutter.dart';
+import 'dart:ui' as ui;
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatefulWidget {
-  @override
   _MyAppState createState() => _MyAppState();
 }
 
@@ -204,6 +207,30 @@ class _MyAppState extends State<MyApp> {
                           showValue: true,
                         ),
                       ))),
+              // Center(
+              //     child: Container(
+              //         height: 70,
+              //         color: Colors.white,
+              //         child: RepaintBoundary(
+              //           key: globalKey,
+              //           child: SfBarcodeGenerator(
+              //             symbology: Code128(),
+              //             value: 'www.syncfusion.com',
+              //             showValue: true,
+              //           ),
+              //         ))),
+              // Center(
+              //     child: Container(
+              //         height: 70,
+              //         color: Colors.white,
+              //         child: RepaintBoundary(
+              //           key: globalKey,
+              //           child: QrImage(
+              //             data: "1234567890",
+              //             version: QrVersions.auto,
+              //             size: 200.0,
+              //           ),
+              //         ))),
               SizedBox(height: 50),
               RaisedButton(
                 onPressed: _printEN,
@@ -217,10 +244,31 @@ class _MyAppState extends State<MyApp> {
                     const Text('Print demo TH', style: TextStyle(fontSize: 20)),
               ),
               SizedBox(height: 30),
+              RaisedButton(
+                onPressed: () async => renderImage(),
+                child:
+                    const Text('Print Qrcode', style: TextStyle(fontSize: 20)),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Future<void> renderImage() async {
+    //Get the render object from context.
+    final RenderRepaintBoundary boundary =
+        globalKey.currentContext.findRenderObject();
+    //Convert to the image
+    final ui.Image image = await boundary.toImage();
+    dynamic bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    final buffer = bytes.buffer;
+
+    final imgData = base64.encode(Uint8List.view(buffer));
+
+    SunmiPrinter.image(imgData);
+
+    SunmiPrinter.emptyLines(3);
   }
 }
