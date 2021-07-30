@@ -1,6 +1,7 @@
 import 'package:barcode_flutter/barcode_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:printertext/print.dart';
+import 'package:printertext/testBarcode.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
@@ -53,48 +54,6 @@ class Home extends StatelessWidget {
             ),
           ),
           Container(
-            height: 70,
-            color: Colors.white,
-            child: SfBarcodeGenerator(
-              symbology: Code128(),
-              value: 'www.syncfusion.com',
-              showValue: true,
-            ),
-          ),
-          Container(
-            height: 100,
-            color: Colors.white,
-            child: SfBarcodeGenerator(
-              symbology: QRCode(),
-              value: 'www.syncfusion.com',
-              showValue: true,
-            ),
-          ),
-          Container(
-            child: BarCodeImage(
-              params: Code39BarCodeParams(
-                "1234ABCD",
-                lineWidth:
-                    2.0, // width for a single black/white bar (default: 2.0)
-                barHeight:
-                    90.0, // height for the entire widget (default: 100.0)
-                withText:
-                    true, // Render with text label or not (default: false)
-              ),
-              onError: (error) {
-                // Error handler
-                print('error = $error');
-              },
-            ),
-          ),
-          Container(
-            child: QrImage(
-              data: "1234567890",
-              version: QrVersions.auto,
-              size: 200.0,
-            ),
-          ),
-          Container(
             color: Colors.grey[200],
             padding: EdgeInsets.all(20),
             child: Row(
@@ -116,10 +75,22 @@ class Home extends StatelessWidget {
                   child: FlatButton(
                     color: Theme.of(context).primaryColor,
                     textColor: Colors.white,
-                    child: Text('Print'),
+                    child: Text('Print Receipt'),
                     onPressed: () {
                       Navigator.push(context,
                           MaterialPageRoute(builder: (_) => Print(data)));
+                    },
+                  ),
+                ),
+                SizedBox(width: 20),
+                Expanded(
+                  child: FlatButton(
+                    color: Theme.of(context).primaryColor,
+                    textColor: Colors.white,
+                    child: Text('Print Barcode'),
+                    onPressed: () {
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (_) => TestBarcode()));
                     },
                   ),
                 )

@@ -31,9 +31,9 @@ dependencies:
   flutter_sunmi_printer: ^0.2.1
   syncfusion_flutter_barcodes: ^18.4.34
   path_provider: ^1.6.18  
+  qr_flutter: ^4.0.0
   barcode_flutter: ^1.1.2
   barcode: ^2.1.0
-  qr_flutter: ^4.0.0
 
 
 dev_dependencies:
