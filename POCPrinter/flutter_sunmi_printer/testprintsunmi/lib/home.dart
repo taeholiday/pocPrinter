@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:testprintsunmi/barcode_widget.dart';
 import 'package:testprintsunmi/syncfusion_flutter_barcodes.dart';
 import 'package:testprintsunmi/rececipt.dart';
 import 'package:testprintsunmi/routes.dart';
@@ -75,6 +76,14 @@ class _HomeState extends State<Home> {
               },
               child:
                   const Text('Print Barcode', style: TextStyle(fontSize: 20)),
+            ),
+            RaisedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (_) => BarcodeWidgetLib()));
+              },
+              child: const Text('Print barcode_widget',
+                  style: TextStyle(fontSize: 20)),
             ),
           ],
         ),

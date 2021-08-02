@@ -191,11 +191,10 @@ class _MyAppState extends State<MyApp> {
                         onPressed: _connected
                             ? () async {
                                 Map<String, dynamic> config = Map();
-                                config['width'] = 40; // 标签宽度，单位mm
-                                config['height'] = 70; // 标签高度，单位mm
-                                config['gap'] = 2; // 标签间隔，单位mm
+                                config['width'] = 40;
+                                config['height'] = 70;
+                                config['gap'] = 2;
 
-                                // x、y坐标位置，单位dpi，1mm=8dpi
                                 List<LineText> list = [];
                                 list.add(LineText(
                                     type: LineText.TYPE_TEXT,

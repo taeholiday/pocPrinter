@@ -1,50 +1,45 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:barcode_flutter/barcode_flutter.dart';
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter_sunmi_printer/flutter_sunmi_printer.dart';
 import 'dart:ui' as ui;
 
-class BarcodeImage extends StatefulWidget {
-  BarcodeImage({Key key}) : super(key: key);
+import 'package:flutter_sunmi_printer/flutter_sunmi_printer.dart';
+
+class BarcodeWidgetLib extends StatefulWidget {
+  BarcodeWidgetLib({Key key}) : super(key: key);
 
   @override
-  _BarcodeImageState createState() => _BarcodeImageState();
+  _BarcodeWidgetLibState createState() => _BarcodeWidgetLibState();
 }
 
-class _BarcodeImageState extends State<BarcodeImage> {
+class _BarcodeWidgetLibState extends State<BarcodeWidgetLib> {
   final GlobalKey globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('barcodeImage'),
+        title: Text('barcode_widget'),
       ),
       body: Center(
         child: Column(
           children: [
-            Container(
-              child: RepaintBoundary(
-                key: globalKey,
-                child: BarCodeImage(
-                  params: Code39BarCodeParams(
-                    "1234ABCD",
-                    lineWidth: 2.0,
-                    barHeight: 90.0,
-                    withText: true,
-                  ),
-                  onError: (error) {
-                    print('error = $error');
-                  },
+            RepaintBoundary(
+              key: globalKey,
+              child: BarcodeWidget(
+                barcode: Barcode.qrCode(
+                  errorCorrectLevel: BarcodeQRCorrectionLevel.high,
                 ),
+                data: 'https://pub.dev/packages/barcode_widget',
+                width: 200,
+                height: 200,
               ),
             ),
-            SizedBox(height: 30),
             RaisedButton(
               onPressed: () async => renderImage(),
-              child: const Text('Print BarcodeImage',
+              child: const Text('Print barcode_widget',
                   style: TextStyle(fontSize: 20)),
             ),
           ],
