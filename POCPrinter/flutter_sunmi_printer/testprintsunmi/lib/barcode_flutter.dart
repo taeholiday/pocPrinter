@@ -59,10 +59,12 @@ class _BarcodeImageState extends State<BarcodeImage> {
         globalKey.currentContext.findRenderObject();
     //Convert to the image
     final ui.Image image = await boundary.toImage();
-    dynamic bytes = await image.toByteData(format: ui.ImageByteFormat.png);
+    ByteData bytes = await image.toByteData(format: ui.ImageByteFormat.png);
     final buffer = bytes.buffer;
 
     final imgData = base64.encode(Uint8List.view(buffer));
+
+    print('imgBase64 $imgData');
 
     SunmiPrinter.image(imgData);
 

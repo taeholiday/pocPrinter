@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -58,6 +59,8 @@ class _QRImageState extends State<QRImage> {
     final buffer = bytes.buffer;
 
     final imgData = base64.encode(Uint8List.view(buffer));
+    print('imgQRcode');
+    log(imgData);
 
     SunmiPrinter.image(imgData);
 

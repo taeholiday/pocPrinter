@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -12,6 +13,8 @@ class Receipt {
     final buffer = bytes.buffer;
     final imgData = base64.encode(Uint8List.view(buffer));
     SunmiPrinter.image(imgData);
+    print('imgLogoBase64');
+    log(imgData);
 
     SunmiPrinter.text(
       '(Business Name)',

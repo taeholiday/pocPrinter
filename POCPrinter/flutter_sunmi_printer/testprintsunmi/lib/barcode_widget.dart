@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:barcode_widget/barcode_widget.dart';
@@ -58,6 +59,8 @@ class _BarcodeWidgetLibState extends State<BarcodeWidgetLib> {
     final buffer = bytes.buffer;
 
     final imgData = base64.encode(Uint8List.view(buffer));
+    print('imgBase64');
+    log(imgData);
 
     SunmiPrinter.image(imgData);
 
