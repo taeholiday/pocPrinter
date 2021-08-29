@@ -1,9 +1,6 @@
-import 'package:barcode_flutter/barcode_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:printertext/print.dart';
 import 'package:printertext/testBarcode.dart';
-import 'package:qr_flutter/qr_flutter.dart';
-import 'package:syncfusion_flutter_barcodes/barcodes.dart';
 
 class Home extends StatelessWidget {
   //

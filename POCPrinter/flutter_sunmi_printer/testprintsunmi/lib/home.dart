@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testprintsunmi/barcode_widget.dart';
-import 'package:testprintsunmi/syncfusion_flutter_barcodes.dart';
 import 'package:testprintsunmi/rececipt.dart';
-import 'package:testprintsunmi/routes.dart';
+import 'package:testprintsunmi/testBarcode.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -38,53 +36,17 @@ class _HomeState extends State<Home> {
                   const Text('Print demo TH', style: TextStyle(fontSize: 20)),
             ),
             SizedBox(height: 10),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => SfBarcodeGenerators(
-                              check: true,
-                            )));
-              },
-              child: const Text('Print SfBarcodeGenerator Barcode',
-                  style: TextStyle(fontSize: 20)),
-            ),
-            SizedBox(height: 10),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (_) => SfBarcodeGenerators(
-                              check: false,
-                            )));
-              },
-              child: const Text('Print SfBarcodeGenerator QRcode',
-                  style: TextStyle(fontSize: 20)),
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.qrImagePage);
-              },
-              child:
-                  const Text('Print QRImage', style: TextStyle(fontSize: 20)),
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, Routes.barcodes);
-              },
-              child:
-                  const Text('Print Barcode', style: TextStyle(fontSize: 20)),
-            ),
-            RaisedButton(
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => BarcodeWidgetLib()));
-              },
-              child: const Text('Print barcode_widget',
-                  style: TextStyle(fontSize: 20)),
-            ),
+            Expanded(
+              child: FlatButton(
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                child: Text('Print Barcode'),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (_) => TestBarcode()));
+                },
+              ),
+            )
           ],
         ),
       ),

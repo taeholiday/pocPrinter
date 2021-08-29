@@ -51,13 +51,13 @@ class _PrintState extends State<Print> {
           ? Center(child: Text(_devicesMsg ?? ''))
           : ListView.builder(
               itemCount: _devices.length,
-              itemBuilder: (c, i) {
+              itemBuilder: (context, index) {
                 return ListTile(
                   leading: Icon(Icons.print),
-                  title: Text(_devices[i].name),
-                  subtitle: Text(_devices[i].address),
+                  title: Text(_devices[index].name),
+                  subtitle: Text(_devices[index].address),
                   onTap: () {
-                    _startPrint(_devices[i]);
+                    _startPrint(_devices[index]);
                   },
                 );
               },

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'dart:typed_data';
 
 import 'package:flutter/services.dart';
@@ -9,12 +8,10 @@ class Receipt {
   Receipt();
   printEN() async {
     // Test image
-    ByteData bytes = await rootBundle.load('assets/images/logoapp.png');
+    ByteData bytes = await rootBundle.load('assets/images/logomiapp.png');
     final buffer = bytes.buffer;
     final imgData = base64.encode(Uint8List.view(buffer));
     SunmiPrinter.image(imgData);
-    print('imgLogoBase64');
-    log(imgData);
 
     SunmiPrinter.text(
       '(Business Name)',
@@ -91,7 +88,7 @@ class Receipt {
 
   printTH() async {
     // Test image
-    ByteData bytes = await rootBundle.load('assets/images/logoapp.png');
+    ByteData bytes = await rootBundle.load('assets/images/logomiapp.png');
 
     final buffer = bytes.buffer;
     final imgData = base64.encode(Uint8List.view(buffer));

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:printertext/barcodeQrcodeGenerater/barcode_flutter.dart';
-import 'package:printertext/barcodeQrcodeGenerater/qr_flutter.dart';
-import 'package:printertext/barcodeQrcodeGenerater/syncfusion_flutter_barcodes.dart';
+import 'package:testprintsunmi/barcodeQrcodeGenerator/barcode_flutter.dart';
+import 'package:testprintsunmi/barcodeQrcodeGenerator/qr_flutter.dart';
+import 'package:testprintsunmi/barcodeQrcodeGenerator/syncfusion_flutter_barcodes.dart';
 
 class TestBarcode extends StatefulWidget {
   TestBarcode({Key key}) : super(key: key);
