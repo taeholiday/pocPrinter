@@ -23,13 +23,19 @@ class _PrintState extends State<Print> {
   @override
   void initState() {
     if (Platform.isAndroid) {
+      //เช็คอุปกรณ์ประเภทandroid
       bluetoothManager.state.listen((val) {
         print('state = $val');
+        //valคือสถานะของบูลทูธในอุปกรณ์
+        //เช็คว่าfutureว่ายังทำงานอยู่
         if (!mounted) return;
+        //val == 12 คือบูลทูธที่อุปกรณ์เปิดอยู่
         if (val == 12) {
           print('on');
+          //เริ่มfunctionScanหาอุปกรณ์ปริ้นเตอร์
           initPrinter();
         } else if (val == 10) {
+          //val == 10 คือบูลทูธที่อุปกรณ์ปิดอยู่
           print('off');
           setState(() => _devicesMsg = 'Bluetooth Disconnect!');
         }
@@ -47,16 +53,18 @@ class _PrintState extends State<Print> {
       appBar: AppBar(
         title: Text('Print'),
       ),
-      body: _devices.isEmpty
+      body: _devices.isEmpty //เช็คว่าถ้าข้อมูลอุปกรณ์ที่Scanเจอว่าง
           ? Center(child: Text(_devicesMsg ?? ''))
           : ListView.builder(
               itemCount: _devices.length,
               itemBuilder: (context, index) {
+                //Listเเสดงอุปกรณ์ที่Scanเจอทั้งหมด
                 return ListTile(
                   leading: Icon(Icons.print),
                   title: Text(_devices[index].name),
                   subtitle: Text(_devices[index].address),
                   onTap: () {
+                    //เลือกอุปกรณ์ปริ้นเตอร์ที่ต้องการเชื่อม
                     _startPrint(_devices[index]);
                   },
                 );
@@ -66,27 +74,35 @@ class _PrintState extends State<Print> {
   }
 
   void initPrinter() {
-    _printerManager.startScan(Duration(seconds: 2));
+    //เริ่มScanหาอุปกรณ์ปริ้นเตอร์เวลา4วิ
+    _printerManager.startScan(Duration(seconds: 4));
     _printerManager.scanResults.listen((val) {
+      //เช็คว่าfutureว่ายังทำงานอยู่
       if (!mounted) return;
+      //valคือชื่อเเละที่อยู่อุปกรณ์ปริ้นเตอร์ที่Scanเจอ
       setState(() => _devices = val);
+      // ถ้าหาไม่เจอให้ขึ้นข้อความ No Devices
       if (_devices.isEmpty) setState(() => _devicesMsg = 'No Devices');
     });
   }
 
   Future<void> _startPrint(PrinterBluetooth printer) async {
+    //เริ่มปริ้นรับค่าอุปกรณ์ปริ้นเตอร์ที่เลือกเชื่อมต่อ
     _printerManager.selectPrinter(printer);
-    final result =
+    //เริ่มปริ้นส่งformใบเสร็จเข้าFunctionPrintใยเสร็จ
+    final result = // ผลลัพธ์ในการปริ้นว่าปริ้นสำเร็จหรือไม่
         await _printerManager.printTicket(await _ticket(PaperSize.mm58));
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
+        //showผลลัพธ์ในการปริ้น
         content: Text(result.msg),
       ),
     );
   }
 
   Future<Ticket> _ticket(PaperSize paper) async {
+    //Function ใบเสร็จรับค่าขนาดกระดาษ
     final ticket = Ticket(paper);
     int total = 0;
 
@@ -130,6 +146,7 @@ class _PrintState extends State<Print> {
 
   @override
   void dispose() {
+    //หยุดScanหาแุปกรณ์
     _printerManager.stopScan();
     super.dispose();
   }

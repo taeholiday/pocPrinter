@@ -83,13 +83,18 @@ class Receipt {
           SunmiStyles(size: SunmiSize.xs, align: SunmiAlign.center, bold: true),
     );
 
+    // Test imageBarcode
+    ByteData bytesbar = await rootBundle.load('assets/images/barcodeAndQR.jpg');
+    final bufferbar = bytesbar.buffer;
+    final imgDatabar = base64.encode(Uint8List.view(bufferbar));
+    SunmiPrinter.image(imgDatabar);
+
     SunmiPrinter.emptyLines(3);
   }
 
   printTH() async {
     // Test image
     ByteData bytes = await rootBundle.load('assets/images/logomiapp.png');
-
     final buffer = bytes.buffer;
     final imgData = base64.encode(Uint8List.view(buffer));
     SunmiPrinter.image(imgData);
@@ -163,6 +168,12 @@ class Receipt {
       styles:
           SunmiStyles(size: SunmiSize.xs, align: SunmiAlign.center, bold: true),
     );
+
+    // Test imageBarcode
+    ByteData bytesbar = await rootBundle.load('assets/images/barcodeAndQR.jpg');
+    final bufferbar = bytesbar.buffer;
+    final imgDatabar = base64.encode(Uint8List.view(bufferbar));
+    SunmiPrinter.image(imgDatabar);
 
     SunmiPrinter.emptyLines(3);
   }

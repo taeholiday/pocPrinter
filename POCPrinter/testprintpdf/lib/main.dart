@@ -1,11 +1,14 @@
 // ignore_for_file: public_member_api_docs
-
+import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_sunmi_printer/flutter_sunmi_printer.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
+import 'dart:ui' as ui;
 
 Future<void> main() async {
   runApp(const MyApp('Printing Demo'));
@@ -51,7 +54,10 @@ class MyApp extends StatelessWidget {
         },
       ),
     );
-
+    var bytes = await pdf.save();
+    final imgData = base64.encode(bytes);
+    print(imgData);
+    SunmiPrinter.image(imgData);
     return pdf.save();
   }
 }

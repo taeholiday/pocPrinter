@@ -69,9 +69,7 @@ class Home extends StatelessWidget {
                 ),
                 SizedBox(width: 20),
                 Expanded(
-                  child: FlatButton(
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
+                  child: ElevatedButton(
                     child: Text('Print Receipt'),
                     onPressed: () {
                       Navigator.push(context,
@@ -81,9 +79,7 @@ class Home extends StatelessWidget {
                 ),
                 SizedBox(width: 20),
                 Expanded(
-                  child: FlatButton(
-                    color: Theme.of(context).primaryColor,
-                    textColor: Colors.white,
+                  child: ElevatedButton(
                     child: Text('Print Barcode'),
                     onPressed: () {
                       Navigator.push(context,

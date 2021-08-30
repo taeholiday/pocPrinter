@@ -20,7 +20,7 @@ class _HomeState extends State<Home> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 30),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 Receipt().printEN();
               },
@@ -28,7 +28,7 @@ class _HomeState extends State<Home> {
                   const Text('Print demo EN', style: TextStyle(fontSize: 20)),
             ),
             SizedBox(height: 10),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 Receipt().printTH();
               },
@@ -36,16 +36,12 @@ class _HomeState extends State<Home> {
                   const Text('Print demo TH', style: TextStyle(fontSize: 20)),
             ),
             SizedBox(height: 10),
-            Expanded(
-              child: FlatButton(
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-                child: Text('Print Barcode'),
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (_) => TestBarcode()));
-                },
-              ),
+            ElevatedButton(
+              child: Text('Print Barcode'),
+              onPressed: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => TestBarcode()));
+              },
             )
           ],
         ),

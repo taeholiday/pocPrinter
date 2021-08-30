@@ -21,7 +21,7 @@ class _TestBarcodeState extends State<TestBarcode> {
         child: Column(
           children: <Widget>[
             SizedBox(height: 30),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => QRImage()));
@@ -29,7 +29,7 @@ class _TestBarcodeState extends State<TestBarcode> {
               child: const Text('Print qr_flutter',
                   style: TextStyle(fontSize: 20)),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                     context, MaterialPageRoute(builder: (_) => BarcodeImage()));
@@ -37,7 +37,7 @@ class _TestBarcodeState extends State<TestBarcode> {
               child:
                   const Text('barcode_flutter', style: TextStyle(fontSize: 20)),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () {
                 Navigator.push(
                     context,
