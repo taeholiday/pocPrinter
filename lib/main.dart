@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:testprintsunmi/home/home.dart';
-import 'package:testprintsunmi/routes.dart';
 
-main() => runApp(MyApp());
+void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
   const MyApp({Key key}) : super(key: key);
@@ -10,10 +8,35 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Test Sunmi Printer',
-      home: Home(),
+      title: 'sunmi printer for V2',
+      home: HomePage(),
       debugShowCheckedModeBanner: false,
-      routes: Routes.routes,
+    );
+  }
+}
+
+class HomePage extends StatefulWidget {
+  HomePage({Key key}) : super(key: key);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              child:
+                  ElevatedButton(onPressed: () {}, child: Text('PrintReceipt')),
+            )
+          ],
+        ),
+      ),
     );
   }
 }
