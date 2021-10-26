@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:testprintsunmi/barcodeMain/barcodeMain.dart';
+import 'package:testprintsunmi/printReceopt/customReceipt.dart';
 import 'package:testprintsunmi/printReceopt/printReceipt.dart';
 import 'package:testprintsunmi/qrCodeMaun/qrcodeMain.dart';
 
@@ -66,33 +67,43 @@ class _HomePageState extends State<HomePage> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: 250.0,
-                  height: 50.0,
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        await SunmiPrinter.bindingPrinter();
-                        setState(() {
-                          printBinded = true;
-                          setDataPrinter();
-                        });
-                      },
-                      child: Text('connect Printer')),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 250.0,
+                      height: 50.0,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            await SunmiPrinter.bindingPrinter();
+                            setState(() {
+                              printBinded = true;
+                              setDataPrinter();
+                            });
+                          },
+                          child: Text('connect Printer')),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   width: 10.0,
                 ),
-                Container(
-                  width: 250.0,
-                  height: 50.0,
-                  child: ElevatedButton(
-                      onPressed: () async {
-                        await SunmiPrinter.unbindingPrinter();
-                        setState(() {
-                          printBinded = false;
-                        });
-                      },
-                      child: Text('disconnect Printer')),
+                Expanded(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 250.0,
+                      height: 50.0,
+                      child: ElevatedButton(
+                          onPressed: () async {
+                            await SunmiPrinter.unbindingPrinter();
+                            setState(() {
+                              printBinded = false;
+                            });
+                          },
+                          child: Text('disconnect Printer')),
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -136,6 +147,28 @@ class _HomePageState extends State<HomePage> {
                           ));
                   },
                   child: Text('PrintReceipt')),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 250.0,
+              height: 50.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    printBinded == true
+                        ? await printCustomReceipt()
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.grey[850],
+                            content: Row(
+                              children: [
+                                Text('Disconnect printer'),
+                              ],
+                            ),
+                          ));
+                  },
+                  child: Text('Custom ESC/POS to print')),
             ),
             SizedBox(
               height: 10,

@@ -7,6 +7,7 @@ Future printReceipt() async {
   // Logo
   await SunmiPrinter.initPrinter();
   await SunmiPrinter.startTransactionPrint(true);
+  await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
   Uint8List byte = await readFileBytes('assets/images/test111.png');
   await SunmiPrinter.printImage(byte);
   await SunmiPrinter.lineWrap(3);
@@ -14,10 +15,11 @@ Future printReceipt() async {
   //receipt
 
   await SunmiPrinter.line();
-  await SunmiPrinter.printText('Payment receipt');
-
-  await SunmiPrinter.printText('Using the old way to bold!');
-
+  await SunmiPrinter.printText('Payment receipt',
+      style: SunmiStyle(align: SunmiPrintAlign.CENTER));
+  await SunmiPrinter.printText('Using the old way to bold!',
+      style: SunmiStyle(align: SunmiPrintAlign.CENTER));
+  await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
   await SunmiPrinter.line();
 
   await SunmiPrinter.printRow(cols: [
@@ -47,13 +49,13 @@ Future printReceipt() async {
     ColumnMaker(text: '1.99', width: 6, align: SunmiPrintAlign.RIGHT),
     ColumnMaker(text: '1.99', width: 6, align: SunmiPrintAlign.RIGHT),
   ]);
-
+  await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
   await SunmiPrinter.line();
   await SunmiPrinter.printRow(cols: [
     ColumnMaker(text: 'TOTAL', width: 25, align: SunmiPrintAlign.LEFT),
     ColumnMaker(text: '38.43', width: 6, align: SunmiPrintAlign.RIGHT),
   ]);
-
+  await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
   await SunmiPrinter.line();
   await SunmiPrinter.lineWrap(3);
   await SunmiPrinter.exitTransactionPrint(true);
