@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
+import 'package:testprintsunmi/barcodeMain/barcodeMain.dart';
 import 'package:testprintsunmi/printReceopt/printReceipt.dart';
+import 'package:testprintsunmi/qrCodeMaun/qrcodeMain.dart';
 
 void main() => runApp(MyApp());
 
@@ -24,6 +27,31 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  int paperSize = 0;
+  String serialNumber = "";
+  String printerVersion = "";
+  bool printBinded = false;
+
+  setDataPrinter() async {
+    await SunmiPrinter.paperSize().then((int size) async {
+      setState(() {
+        paperSize = size;
+      });
+    });
+
+    await SunmiPrinter.printerVersion().then((String version) async {
+      setState(() {
+        printerVersion = version;
+      });
+    });
+
+    await SunmiPrinter.serialNumber().then((String serial) async {
+      setState(() {
+        serialNumber = serial;
+      });
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,14 +63,175 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 20,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  width: 250.0,
+                  height: 50.0,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        await SunmiPrinter.bindingPrinter();
+                        setState(() {
+                          printBinded = true;
+                          setDataPrinter();
+                        });
+                      },
+                      child: Text('connect Printer')),
+                ),
+                SizedBox(
+                  width: 10.0,
+                ),
+                Container(
+                  width: 250.0,
+                  height: 50.0,
+                  child: ElevatedButton(
+                      onPressed: () async {
+                        await SunmiPrinter.unbindingPrinter();
+                        setState(() {
+                          printBinded = false;
+                        });
+                      },
+                      child: Text('disconnect Printer')),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(
+                top: 10,
+              ),
+              child: Text("Print binded: " + printBinded.toString()),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: Text("Paper size: " + paperSize.toString()),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: Text("Serial number: " + serialNumber),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 2.0),
+              child: Text("Printer version: " + printerVersion),
+            ),
+            const Divider(),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               width: 250.0,
               height: 50.0,
               child: ElevatedButton(
                   onPressed: () async {
-                    await printReceipt();
+                    printBinded == true
+                        ? await printReceipt()
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.grey[850],
+                            content: Row(
+                              children: [
+                                Text('Disconnect printer'),
+                              ],
+                            ),
+                          ));
                   },
                   child: Text('PrintReceipt')),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 250.0,
+              height: 50.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    printBinded == true
+                        ? await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BarcodeMain()),
+                          )
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.grey[850],
+                            content: Row(
+                              children: [
+                                Text('Disconnect printer'),
+                              ],
+                            ),
+                          ));
+                  },
+                  child: Text('PrintBarcode')),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 250.0,
+              height: 50.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    printBinded == true
+                        ? await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => QrcodeMain()),
+                          )
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.grey[850],
+                            content: Row(
+                              children: [
+                                Text('Disconnect printer'),
+                              ],
+                            ),
+                          ));
+                  },
+                  child: Text('PrintQRcode')),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 250.0,
+              height: 50.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    printBinded == true
+                        ? await SunmiPrinter.cut()
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.grey[850],
+                            content: Row(
+                              children: [
+                                Text('Disconnect printer'),
+                              ],
+                            ),
+                          ));
+                  },
+                  child: Text('Cut_paper')),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 250.0,
+              height: 50.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    printBinded == true
+                        ? print(await SunmiPrinter.getPrinterMode())
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.grey[850],
+                            content: Row(
+                              children: [
+                                Text('Disconnect printer'),
+                              ],
+                            ),
+                          ));
+                  },
+                  child: Text('PrinterMode')),
             ),
           ],
         ),
