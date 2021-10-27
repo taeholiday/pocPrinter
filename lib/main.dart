@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:testprintsunmi/barcodeMain/barcodeMain.dart';
-import 'package:testprintsunmi/printReceopt/customReceipt.dart';
+import 'package:testprintsunmi/customESC/customReceipt.dart';
 import 'package:testprintsunmi/printReceopt/printReceipt.dart';
-import 'package:testprintsunmi/qrCodeMaun/qrcodeMain.dart';
+import 'package:testprintsunmi/qrCodeMain/qrcodeMain.dart';
 
 void main() => runApp(MyApp());
 
@@ -157,7 +157,11 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                   onPressed: () async {
                     printBinded == true
-                        ? await printCustomReceipt()
+                        ? await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CustomReceipt()),
+                          )
                         : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             duration: Duration(seconds: 1),
                             backgroundColor: Colors.grey[850],
