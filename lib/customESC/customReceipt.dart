@@ -83,47 +83,31 @@ class _CustomReceiptState extends State<CustomReceipt> {
                   ),
                 ),
                 SizedBox(
-                  width: 20.0,
+                  width: 5,
                 ),
                 Expanded(
-                    child: Row(
-                  children: [
-                    Text('set PaperSize'),
-                    Radio(
-                      value: 1,
-                      groupValue: val,
-                      onChanged: (value) {
-                        setState(() {
-                          val = value;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text('58 mm.'),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Radio(
-                      value: 2,
-                      groupValue: val,
-                      onChanged: (value) {
-                        setState(() {
-                          val = value;
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                    Text('80 mm.'),
-                    SizedBox(
-                      width: 20.0,
-                    ),
-                  ],
-                )),
-                SizedBox(width: 20),
+                  child: ElevatedButton(
+                    child: Text('58 mm.'),
+                    onPressed: () {
+                      setState(() {
+                        val = 1;
+                      });
+                    },
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    child: Text('80 mm.'),
+                    onPressed: () {
+                      setState(() {
+                        val = 2;
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           )
