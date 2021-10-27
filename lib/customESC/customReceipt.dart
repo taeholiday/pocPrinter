@@ -7,7 +7,8 @@ import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:testprintsunmi/imgToByte.dart';
 
 class CustomReceipt extends StatefulWidget {
-  CustomReceipt({Key key}) : super(key: key);
+  final int selectPaperSize;
+  CustomReceipt({Key key, this.selectPaperSize}) : super(key: key);
 
   @override
   _CustomReceiptState createState() => _CustomReceiptState();
@@ -35,6 +36,13 @@ class _CustomReceiptState extends State<CustomReceipt> {
       'total_price': 120,
     },
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    val = widget.selectPaperSize;
+  }
+
   @override
   Widget build(BuildContext context) {
     int _total = 0;
@@ -81,32 +89,6 @@ class _CustomReceiptState extends State<CustomReceipt> {
                     child: Text('Print Receipt'),
                     onPressed: () async {
                       await printReceiptCustom();
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    child: Text('58 mm.'),
-                    onPressed: () {
-                      setState(() {
-                        val = 1;
-                      });
-                    },
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Expanded(
-                  child: ElevatedButton(
-                    child: Text('80 mm.'),
-                    onPressed: () {
-                      setState(() {
-                        val = 2;
-                      });
                     },
                   ),
                 ),
