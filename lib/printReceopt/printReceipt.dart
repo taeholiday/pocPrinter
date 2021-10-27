@@ -12,7 +12,7 @@ Future printReceipt() async {
   await SunmiPrinter.printImage(byte);
   await SunmiPrinter.lineWrap(3);
 
-  //receipt
+  //receipt detail
 
   await SunmiPrinter.line();
   await SunmiPrinter.printText('Payment receipt',

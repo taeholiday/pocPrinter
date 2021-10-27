@@ -2,7 +2,9 @@ import 'dart:typed_data';
 
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:image/image.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
+import 'package:testprintsunmi/imgToByte.dart';
 
 class CustomReceipt extends StatefulWidget {
   CustomReceipt({Key key}) : super(key: key);
@@ -130,6 +132,11 @@ class _CustomReceiptState extends State<CustomReceipt> {
         Generator(val == 1 ? PaperSize.mm58 : PaperSize.mm80, profile);
     List<int> bytes = [];
     int total = 0;
+    // Print image:
+    Uint8List byteImg = await readFileBytes('assets/images/test111.png');
+    var img = decodeImage(byteImg);
+    bytes += generator.image(img);
+    //detail Receipt
     bytes += generator.row([
       PosColumn(
         text: 'productName x amount',
@@ -154,17 +161,17 @@ class _CustomReceiptState extends State<CustomReceipt> {
         PosColumn(
           text: '${data[i]['title']} x ${data[i]['qty']}',
           width: 3,
-          styles: PosStyles(align: PosAlign.center, underline: true),
+          styles: PosStyles(align: PosAlign.center),
         ),
         PosColumn(
           text: data[i]['price'].toString(),
           width: 6,
-          styles: PosStyles(align: PosAlign.center, underline: true),
+          styles: PosStyles(align: PosAlign.center),
         ),
         PosColumn(
           text: data[i]['total_price'].toString(),
           width: 3,
-          styles: PosStyles(align: PosAlign.center, underline: true),
+          styles: PosStyles(align: PosAlign.center),
         ),
       ]);
     }
@@ -183,10 +190,24 @@ class _CustomReceiptState extends State<CustomReceipt> {
       ),
     ]);
     bytes += generator.feed(1);
+    // Print Qrcode
+    bytes += generator.qrcode('https://www.google.co.th/',
+        size: QRSize.Size8, cor: QRCorrection.H, align: PosAlign.center);
+    bytes += generator.feed(1);
+    bytes += generator.feed(1);
+    // Print barcode
+    final List<int> barData = [1, 2, 3, 4, 5, 6, 7, 8, 9, 0, 4];
+    bytes += generator.barcode(Barcode.upcA(barData),
+        height: 70, align: PosAlign.center);
+    bytes += generator.feed(1);
     bytes += generator.text('Thank You',
-        styles: PosStyles(align: PosAlign.center, bold: true));
-
+        styles: PosStyles(
+          height: PosTextSize.size2,
+          width: PosTextSize.size2,
+        ));
+    // resetList and TExtStyle
     bytes += generator.reset();
+    //cut Paper
     bytes += generator.cut();
 
     return bytes;
