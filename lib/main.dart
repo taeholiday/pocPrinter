@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:testprintsunmi/barcodeMain/barcodeMain.dart';
 import 'package:testprintsunmi/customESC/customReceipt.dart';
+import 'package:testprintsunmi/printPDF/printPDF.dart';
 import 'package:testprintsunmi/printReceopt/printReceipt.dart';
 import 'package:testprintsunmi/qrCodeMain/qrcodeMain.dart';
 
@@ -264,7 +265,11 @@ class _HomePageState extends State<HomePage> {
               child: ElevatedButton(
                   onPressed: () async {
                     printBinded == true
-                        ? await SunmiPrinter.cut()
+                        ? await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => PdfLayout()),
+                          )
                         : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             duration: Duration(seconds: 1),
                             backgroundColor: Colors.grey[850],

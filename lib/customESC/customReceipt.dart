@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:charset_converter/charset_converter.dart';
 import 'package:esc_pos_utils/esc_pos_utils.dart';
 import 'package:flutter/material.dart';
+
 import 'package:image/image.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:testprintsunmi/imgToByte.dart';
@@ -113,7 +114,7 @@ class _CustomReceiptState extends State<CustomReceipt> {
     Uint8List encoded = await CharsetConverter.encode("TIS620", "สวัดดี");
     String decoded = await CharsetConverter.decode("TIS620", encoded);
     print(decoded);
-    final profile = await CapabilityProfile.load(name: "TIS620");
+    final profile = await CapabilityProfile.load();
     final generator =
         Generator(val == 1 ? PaperSize.mm58 : PaperSize.mm80, profile);
     List<int> bytes = [];
@@ -125,7 +126,7 @@ class _CustomReceiptState extends State<CustomReceipt> {
     //detail Receipt
     bytes += generator.row([
       PosColumn(
-        text: decoded.toString(),
+        text: 'productName',
         width: 3,
         styles: PosStyles(align: PosAlign.center, underline: true),
       ),
