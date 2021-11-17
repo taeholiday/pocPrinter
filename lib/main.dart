@@ -259,28 +259,48 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
+            // Container(
+            //   width: 250.0,
+            //   height: 50.0,
+            //   child: ElevatedButton(
+            //       onPressed: () async {
+            //         printBinded == true
+            //             ? await SunmiPrinter.cut()
+            //             : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            //                 duration: Duration(seconds: 1),
+            //                 backgroundColor: Colors.grey[850],
+            //                 content: Row(
+            //                   children: [
+            //                     Text('Disconnect printer'),
+            //                   ],
+            //                 ),
+            //               ));
+            //       },
+            //       child: Text('Cut_paper')),
+            // ),
+            SizedBox(
+              height: 10,
+            ),
             Container(
               width: 250.0,
               height: 50.0,
               child: ElevatedButton(
                   onPressed: () async {
-                    printBinded == true
-                        ? await Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PdfLayout()),
-                          )
-                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            duration: Duration(seconds: 1),
-                            backgroundColor: Colors.grey[850],
-                            content: Row(
-                              children: [
-                                Text('Disconnect printer'),
-                              ],
-                            ),
-                          ));
+                    await createPDE();
                   },
-                  child: Text('Cut_paper')),
+                  child: Text('PDF')),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              width: 250.0,
+              height: 50.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    await printPDF();
+                  },
+                  child: Text('print PDF')),
             ),
           ],
         ),
