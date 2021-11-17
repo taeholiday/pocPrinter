@@ -286,21 +286,15 @@ class _HomePageState extends State<HomePage> {
               height: 50.0,
               child: ElevatedButton(
                   onPressed: () async {
-                    await createPDE();
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PDF()),
+                    );
                   },
                   child: Text('PDF')),
             ),
             SizedBox(
               height: 10,
-            ),
-            Container(
-              width: 250.0,
-              height: 50.0,
-              child: ElevatedButton(
-                  onPressed: () async {
-                    await printPDF();
-                  },
-                  child: Text('print PDF')),
             ),
           ],
         ),
