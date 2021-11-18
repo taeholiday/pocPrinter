@@ -3,11 +3,10 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
-import 'package:native_pdf_renderer/native_pdf_renderer.dart' as pd;
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
+import 'package:testprintsunmi/printPDF/saveFile.dart';
 
 class PDF extends StatefulWidget {
   PDF({Key key}) : super(key: key);
@@ -26,27 +25,42 @@ class _PDFState extends State<PDF> {
     createPDE();
   }
 
+  openPdfFile(BuildContext context) async {
+    pageImagebyte = await openPdfFileAndConvertImage(context);
+  }
+
   @override
   Widget build(BuildContext context) {
+    openPdfFile(context);
     return Scaffold(
-      body: Center(
-        child: Column(
-          children: [
-            Image.memory(pageImagebyte),
-            ElevatedButton(
-                onPressed: () async {
-                  await printPDF();
-                },
-                child: Text('print'))
-          ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Image.memory(pageImagebyte),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 50,
+                width: 250,
+                child: ElevatedButton(
+                    onPressed: () async {
+                      await printPDF();
+                    },
+                    child: Text('print')),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   createPDE() async {
-    final directory = await getApplicationDocumentsDirectory();
-
     final imageJpg = (await rootBundle.load('assets/images/test111.png'))
         .buffer
         .asUint8List();
@@ -61,30 +75,27 @@ class _PDFState extends State<PDF> {
                 width: 100,
                 child: pw.Image(pw.MemoryImage(imageJpg)),
               ),
-              pw.Text('miPOS',
+              pw.Text('Taeshop',
                   style: pw.TextStyle(
-                      fontSize: 25, fontWeight: pw.FontWeight.bold)),
-              pw.Divider(color: PdfColor(1.0, 1.0, 1.0)),
+                      fontSize: 18, fontWeight: pw.FontWeight.bold)),
+              pw.Divider(),
               pw.Text('name: anukul thongkham'),
               pw.Text('DateTime: 17/11/64 10:30'),
             ]),
           );
         }));
 
-    final file = File("${directory.path}/receipt.pdf");
-    await file.writeAsBytes(await pdf.save());
-    final document =
-        await pd.PdfDocument.openFile("${directory.path}/receipt.pdf");
-
-    final page = await document.getPage(1);
-    final pageImage = await page.render(width: 100, height: 100);
-    await page.close();
-    pageImagebyte = pageImage.bytes;
+    await writeData(await pdf.save());
   }
 
   printPDF() async {
     print(pageImagebyte);
     await SunmiPrinter.initPrinter();
+    await SunmiPrinter.startTransactionPrint(true);
     await SunmiPrinter.printImage(pageImagebyte);
+    await SunmiPrinter.lineWrap(3);
+    await SunmiPrinter.getPrinterStatusWithVerbose();
+    await SunmiPrinter.cut();
+    await SunmiPrinter.exitTransactionPrint(true);
   }
 }

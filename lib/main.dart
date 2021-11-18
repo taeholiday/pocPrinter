@@ -3,6 +3,7 @@ import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
 import 'package:testprintsunmi/barcodeMain/barcodeMain.dart';
 import 'package:testprintsunmi/customESC/customReceipt.dart';
 import 'package:testprintsunmi/printPDF/printPDF.dart';
+import 'package:testprintsunmi/printPDF/saveFile.dart';
 import 'package:testprintsunmi/printReceopt/printReceipt.dart';
 import 'package:testprintsunmi/qrCodeMain/qrcodeMain.dart';
 
@@ -286,6 +287,7 @@ class _HomePageState extends State<HomePage> {
               height: 50.0,
               child: ElevatedButton(
                   onPressed: () async {
+                    await deleteFile();
                     await Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PDF()),
