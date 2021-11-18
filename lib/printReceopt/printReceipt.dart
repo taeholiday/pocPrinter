@@ -9,7 +9,6 @@ Future printReceipt(int value) async {
   await SunmiPrinter.startTransactionPrint(true);
   await SunmiPrinter.setAlignment(SunmiPrintAlign.CENTER);
   Uint8List byte = await readFileBytes('assets/images/test111.png');
-  print(byte);
   await SunmiPrinter.printImage(byte);
   await SunmiPrinter.lineWrap(3);
 

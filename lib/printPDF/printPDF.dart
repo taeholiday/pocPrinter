@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 
@@ -61,7 +60,11 @@ class _PDFState extends State<PDF> {
   }
 
   createPDE() async {
-    final imageJpg = (await rootBundle.load('assets/images/test111.png'))
+    var date = DateTime.now().toString().substring(0, 19);
+    final imagePng = (await rootBundle.load('assets/images/test111.png'))
+        .buffer
+        .asUint8List();
+    final imageJpg = (await rootBundle.load('assets/images/QRpayment.jpg'))
         .buffer
         .asUint8List();
 
@@ -70,17 +73,116 @@ class _PDFState extends State<PDF> {
         build: (pw.Context context) {
           return pw.Center(
             child: pw.Column(children: [
-              pw.SizedBox(
-                height: 100,
-                width: 100,
-                child: pw.Image(pw.MemoryImage(imageJpg)),
+              pw.SizedBox(height: 15),
+              pw.Container(
+                child: pw.Image(pw.MemoryImage(imagePng)),
               ),
+              pw.SizedBox(height: 10),
               pw.Text('Taeshop',
                   style: pw.TextStyle(
-                      fontSize: 18, fontWeight: pw.FontWeight.bold)),
+                      fontSize: 10, fontWeight: pw.FontWeight.bold)),
+              pw.SizedBox(height: 10),
+              pw.Text(
+                'First Branch',
+              ),
+              pw.SizedBox(height: 10),
+              pw.Text(
+                'address',
+              ),
               pw.Divider(),
-              pw.Text('name: anukul thongkham'),
-              pw.Text('DateTime: 17/11/64 10:30'),
+              pw.Row(children: [
+                pw.Text(
+                  'Tel: 0642589176',
+                ),
+              ]),
+              pw.Row(children: [
+                pw.Text(
+                  'Date: $date',
+                ),
+              ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'UserId: 1',
+                    ),
+                    pw.Text(
+                      'Role: oener',
+                    ),
+                  ]),
+              pw.Divider(),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Product Name',
+                    ),
+                    pw.Text(
+                      'Qty',
+                    ),
+                    pw.Text(
+                      'Price',
+                    ),
+                  ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Product1',
+                    ),
+                    pw.Text(
+                      '2',
+                    ),
+                    pw.Text(
+                      '200',
+                    ),
+                  ]),
+              pw.Divider(),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Subtotal',
+                    ),
+                    pw.Text(
+                      '200.00',
+                    ),
+                  ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'VAT',
+                    ),
+                    pw.Text(
+                      '15.00',
+                    ),
+                  ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Discount',
+                    ),
+                    pw.Text(
+                      '10.00',
+                    ),
+                  ]),
+              pw.Row(
+                  mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+                  children: [
+                    pw.Text(
+                      'Total',
+                    ),
+                    pw.Text(
+                      '190.00',
+                    ),
+                  ]),
+              pw.Divider(),
+              pw.Container(
+                child: pw.Image(pw.MemoryImage(imageJpg)),
+              ),
+              pw.SizedBox(height: 10),
             ]),
           );
         }));
