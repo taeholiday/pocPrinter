@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
+import 'package:testprintsunmi/imgToByte.dart';
 import 'package:testprintsunmi/printPDF/saveFile.dart';
 
 class PDF extends StatefulWidget {
@@ -60,6 +61,9 @@ class _PDFState extends State<PDF> {
   }
 
   createPDE() async {
+    Uint8List fontData = await readFileBytes('assets/fonts/DBOzoneX.ttf');
+    final ttf = pw.Font.ttf(fontData.buffer.asByteData());
+
     var date = DateTime.now().toString().substring(0, 19);
     final imagePng = (await rootBundle.load('assets/images/test111.png'))
         .buffer
@@ -78,9 +82,12 @@ class _PDFState extends State<PDF> {
                 child: pw.Image(pw.MemoryImage(imagePng)),
               ),
               pw.SizedBox(height: 10),
-              pw.Text('Taeshop',
+              pw.Text('tae shop',
                   style: pw.TextStyle(
-                      fontSize: 10, fontWeight: pw.FontWeight.bold)),
+                    fontSize: 10,
+                    fontWeight: pw.FontWeight.bold,
+                    font: ttf,
+                  )),
               pw.SizedBox(height: 10),
               pw.Text(
                 'First Branch',
@@ -114,15 +121,24 @@ class _PDFState extends State<PDF> {
               pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
                   children: [
-                    pw.Text(
-                      'Product Name',
-                    ),
-                    pw.Text(
-                      'Qty',
-                    ),
-                    pw.Text(
-                      'Price',
-                    ),
+                    pw.Text('ชื่อสินค้า',
+                        style: pw.TextStyle(
+                          fontSize: 15,
+                          fontWeight: pw.FontWeight.bold,
+                          font: ttf,
+                        )),
+                    pw.Text('จำนวน',
+                        style: pw.TextStyle(
+                          fontSize: 15,
+                          fontWeight: pw.FontWeight.bold,
+                          font: ttf,
+                        )),
+                    pw.Text('ราคา',
+                        style: pw.TextStyle(
+                          fontSize: 15,
+                          fontWeight: pw.FontWeight.bold,
+                          font: ttf,
+                        )),
                   ]),
               pw.Row(
                   mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
@@ -201,3 +217,5 @@ class _PDFState extends State<PDF> {
     await SunmiPrinter.exitTransactionPrint(true);
   }
 }
+
+class CharsetConverter {}

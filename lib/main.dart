@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'sunmi printer for V2',
+      theme: ThemeData(fontFamily: 'DB Heavent'),
       home: HomePage(),
       debugShowCheckedModeBanner: false,
     );
@@ -287,7 +288,7 @@ class _HomePageState extends State<HomePage> {
               height: 50.0,
               child: ElevatedButton(
                   onPressed: () async {
-                    await deleteFile();
+                    // await deleteFile();
                     await Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PDF()),

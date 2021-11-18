@@ -33,7 +33,6 @@ dependencies:
   image: ^3.0.8
   charset_converter: ^2.0.0
   esc_pos_printer: ^4.1.0
-  printing: ^5.6.1
   path_provider: ^2.0.4
   pdf: ^3.6.2
   native_pdf_renderer: ^4.0.1
