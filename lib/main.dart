@@ -261,25 +261,25 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 10,
             ),
-            // Container(
-            //   width: 250.0,
-            //   height: 50.0,
-            //   child: ElevatedButton(
-            //       onPressed: () async {
-            //         printBinded == true
-            //             ? await SunmiPrinter.cut()
-            //             : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            //                 duration: Duration(seconds: 1),
-            //                 backgroundColor: Colors.grey[850],
-            //                 content: Row(
-            //                   children: [
-            //                     Text('Disconnect printer'),
-            //                   ],
-            //                 ),
-            //               ));
-            //       },
-            //       child: Text('Cut_paper')),
-            // ),
+            Container(
+              width: 250.0,
+              height: 50.0,
+              child: ElevatedButton(
+                  onPressed: () async {
+                    printBinded == true
+                        ? await SunmiPrinter.cut()
+                        : ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            duration: Duration(seconds: 1),
+                            backgroundColor: Colors.grey[850],
+                            content: Row(
+                              children: [
+                                Text('Disconnect printer'),
+                              ],
+                            ),
+                          ));
+                  },
+                  child: Text('Cut_paper')),
+            ),
             SizedBox(
               height: 10,
             ),
@@ -288,7 +288,6 @@ class _HomePageState extends State<HomePage> {
               height: 50.0,
               child: ElevatedButton(
                   onPressed: () async {
-                    // await deleteFile();
                     await Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => PDF()),
