@@ -74,6 +74,9 @@ flutter:
     - family: DB Heavent
       fonts:
         - asset: assets/fonts/DBOzoneX.ttf
+    - family: THSarabunNew
+      fonts:
+        - asset: assets/fonts/THSarabunNew Bold.ttf
   # fonts:
   #   - family: Schyler
   #     fonts:
