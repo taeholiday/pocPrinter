@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:sunmi_printer_plus/sunmi_printer_plus.dart';
+import 'package:testprintsunmi/renderImage/imgByte.dart';
 import 'dart:ui' as ui;
 
 import 'package:testprintsunmi/renderImage/setPaperSize.dart';
@@ -35,7 +36,7 @@ class _ImageRenderState extends State<ImageRender> {
       print('inside');
       RenderRepaintBoundary boundary =
           _globalKey.currentContext.findRenderObject();
-      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      ui.Image image = await boundary.toImage(pixelRatio: 10);
       ByteData byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
       var pngBytes = byteData.buffer.asUint8List();
@@ -64,18 +65,13 @@ class _ImageRenderState extends State<ImageRender> {
               child: RepaintBoundary(
                 key: _globalKey,
                 child: Container(
-                  //T2
-                  //V2 *3 125
-                  width: 190,
+                  width: paperSize58,
                   color: Colors.white,
                   child: Column(
                     children: [
-                      //*3
-                      // height: 70,
-                      // width: 100,
                       Container(
-                        height: 60,
-                        width: 120,
+                        height: logoImageheightSize58,
+                        width: logoImagewidthSize58,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage('assets/images/test111.png'),
@@ -85,46 +81,33 @@ class _ImageRenderState extends State<ImageRender> {
                       Container(
                         child: Text(
                           'TAESHOP',
-                          style: TextStyle(
-                              fontSize: 22, //12
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
+                          style: textStyleReceipt(businessNameSize58),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 5),
                         child: Text(
                           'Saimai 21',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 17, //8
-                            color: Colors.black,
-                          ),
+                          style: textStyleReceipt(branchNameSize58),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 5),
                         child: Text(
                           '121/189 saimai bangkok 10220',
-                          style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 12,
-                            color: Colors.black,
-                          ),
+                          style: textStyleReceipt(branchAddressSize58),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                       Divider(
+                        height: 2,
                         color: Colors.black,
                       ),
                       Row(
                         children: [
                           Text(
                             'เบอร์: 064258976',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: textStyleReceipt(branchPhoneNumberSize58),
                           ),
                         ],
                       ),
@@ -132,176 +115,170 @@ class _ImageRenderState extends State<ImageRender> {
                         children: [
                           Text(
                             'วันที่: 23/11/2564',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: textStyleReceipt(dateSize58),
                           ),
                         ],
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             'รหัสพนักงาน: 1',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          Text(
-                            'ตำเเหน่ง: admin',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Colors.black,
-                              fontWeight: FontWeight.w500,
-                            ),
+                            style: textStyleReceipt(employee_IDSize58),
                           ),
                         ],
                       ),
                       Divider(
+                        height: 2,
                         color: Colors.black,
                       ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            'สินค้า',
-                            style: TextStyle(
-                              fontSize: 13,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold,
+                          Expanded(
+                            flex: 4,
+                            child: Text('ชื่อสินค้า',
+                                style: textStyleReceipt(productNameSize58)),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text(
+                              'ราคา',
+                              style: textStyleReceipt(priceSize58),
+                              textAlign: TextAlign.end,
                             ),
                           ),
-                          Text(
-                            'จำนวน',
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          Text(
-                            'ราคา',
-                            style: TextStyle(
-                                fontSize: 13,
-                                color: Colors.black,
-                                fontWeight: FontWeight.bold),
-                          )
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'สินค้า1',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '1',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '200.00',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'สินค้า2',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '2',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '500.00',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'สินค้า3',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '7',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '100.00',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'สินค้า4',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '5',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          ),
-                          Text(
-                            '120.00',
-                            style: TextStyle(
-                                fontSize: dataReceiptSize58,
-                                color: Colors.black),
-                          )
-                        ],
-                      ),
-                      Divider(
-                        color: Colors.black,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          height: 120, //120
-                          width: 130, //130
-                          decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image:
-                                    AssetImage('assets/images/QRpayment.jpg'),
-                                fit: BoxFit.cover),
-                          ),
+                      Container(
+                        width: 350,
+                        child: ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: 70,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Row(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Text('product$index',
+                                      style:
+                                          textStyleReceipt(dataReceiptSize58)),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    'x$index',
+                                    style: textStyleReceipt(dataReceiptSize58),
+                                  ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Text(
+                                    '$index' + '00',
+                                    style: textStyleReceipt(dataReceiptSize58),
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                         ),
                       ),
-                      SizedBox(
-                        height: 10,
-                      )
+                      Divider(
+                        height: 2,
+                        color: Colors.black,
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: Text(
+                              'ยอดรวม:',
+                              style: textStyleReceipt(sumtotalSize58),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text('600',
+                                style: textStyleReceipt(sumtotalSize58),
+                                textAlign: TextAlign.end),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: Text(
+                              'ภาษี:',
+                              style: textStyleReceipt(vatSize58),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text('35',
+                                style: textStyleReceipt(vatSize58),
+                                textAlign: TextAlign.end),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: Text(
+                              'ส่วยลด:',
+                              style: textStyleReceipt(discountSize58),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text('60',
+                                style: textStyleReceipt(discountSize58),
+                                textAlign: TextAlign.end),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 4,
+                            child: Text(
+                              'ราคารวม:',
+                              style: TextStyle(
+                                fontFamily: 'THSarabunNew',
+                                fontWeight: FontWeight.w900,
+                                fontSize: totalPriceSize58,
+                                decoration: TextDecoration.none,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Text('600',
+                                style: TextStyle(
+                                  fontFamily: 'THSarabunNew',
+                                  fontWeight: FontWeight.w900,
+                                  fontSize: totalPriceSize58,
+                                  decoration: TextDecoration.none,
+                                  color: Colors.black,
+                                ),
+                                textAlign: TextAlign.end),
+                          ),
+                        ],
+                      ),
+                      Divider(
+                        height: 2,
+                        color: Colors.black,
+                      ),
+                      Container(
+                        height: qrcodeImageheightSize58,
+                        width: qrcodeImagewidthSize58,
+                        decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/QRpayment.jpg'),
+                              fit: BoxFit.cover),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -320,6 +297,17 @@ class _ImageRenderState extends State<ImageRender> {
                   await printReceiptImage(context, img);
                 },
                 child: Text('printPDF')),
+            ElevatedButton(
+                onPressed: () async {
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ImageLayout(
+                              imgByte: img,
+                            )),
+                  );
+                },
+                child: Text('Img')),
           ],
         )),
       ),
@@ -327,6 +315,7 @@ class _ImageRenderState extends State<ImageRender> {
   }
 
   printReceiptImage(BuildContext context, Uint8List imgByte) async {
+    print(imgByte);
     await SunmiPrinter.initPrinter();
     await SunmiPrinter.startTransactionPrint(true);
     await SunmiPrinter.printImage(imgByte);
