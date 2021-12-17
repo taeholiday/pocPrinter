@@ -10,17 +10,19 @@ import 'dart:ui' as ui;
 import 'package:testprintsunmi/renderImage/setPaperSize.dart';
 
 class ImageRender extends StatefulWidget {
-  ImageRender({Key key}) : super(key: key);
-
+  ImageRender({Key key, this.selectPaperSize}) : super(key: key);
+  final int selectPaperSize;
   @override
   _ImageRenderState createState() => _ImageRenderState();
 }
 
 class _ImageRenderState extends State<ImageRender> {
+  int val = 1;
   @override
   void initState() {
     super.initState();
     connectPrinter();
+    val = widget.selectPaperSize;
   }
 
   connectPrinter() async {
@@ -65,13 +67,17 @@ class _ImageRenderState extends State<ImageRender> {
               child: RepaintBoundary(
                 key: _globalKey,
                 child: Container(
-                  width: paperSize58,
+                  width: val == 1 ? paperSize58 : paperSize90,
                   color: Colors.white,
                   child: Column(
                     children: [
                       Container(
-                        height: logoImageheightSize58,
-                        width: logoImagewidthSize58,
+                        height: val == 1
+                            ? logoImageheightSize58
+                            : logoImageheightSize90,
+                        width: val == 1
+                            ? logoImagewidthSize58
+                            : logoImagewidthSize90,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage('assets/images/test111.png'),
@@ -81,21 +87,26 @@ class _ImageRenderState extends State<ImageRender> {
                       Container(
                         child: Text(
                           'TAESHOP',
-                          style: textStyleReceipt(businessNameSize58),
+                          style: textStyleReceipt(val == 1
+                              ? businessNameSize58
+                              : businessNameSize90),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       Container(
                         child: Text(
                           'Saimai 21',
-                          style: textStyleReceipt(branchNameSize58),
+                          style: textStyleReceipt(
+                              val == 1 ? branchNameSize58 : branchNameSize90),
                           textAlign: TextAlign.center,
                         ),
                       ),
                       Container(
                         child: Text(
                           '121/189 saimai bangkok 10220',
-                          style: textStyleReceipt(branchAddressSize58),
+                          style: textStyleReceipt(val == 1
+                              ? branchAddressSize58
+                              : branchAddressSize90),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -107,7 +118,9 @@ class _ImageRenderState extends State<ImageRender> {
                         children: [
                           Text(
                             'เบอร์: 064258976',
-                            style: textStyleReceipt(branchPhoneNumberSize58),
+                            style: textStyleReceipt(val == 1
+                                ? branchPhoneNumberSize58
+                                : branchPhoneNumberSize90),
                           ),
                         ],
                       ),
@@ -115,7 +128,8 @@ class _ImageRenderState extends State<ImageRender> {
                         children: [
                           Text(
                             'วันที่: 23/11/2564',
-                            style: textStyleReceipt(dateSize58),
+                            style: textStyleReceipt(
+                                val == 1 ? dateSize58 : dateSize90),
                           ),
                         ],
                       ),
@@ -123,7 +137,9 @@ class _ImageRenderState extends State<ImageRender> {
                         children: [
                           Text(
                             'รหัสพนักงาน: 1',
-                            style: textStyleReceipt(employee_IDSize58),
+                            style: textStyleReceipt(val == 1
+                                ? employee_IDSize58
+                                : employee_IDSize90),
                           ),
                         ],
                       ),
@@ -136,13 +152,16 @@ class _ImageRenderState extends State<ImageRender> {
                           Expanded(
                             flex: 4,
                             child: Text('ชื่อสินค้า',
-                                style: textStyleReceipt(productNameSize58)),
+                                style: textStyleReceipt(val == 1
+                                    ? productNameSize58
+                                    : productNameSize90)),
                           ),
                           Expanded(
                             flex: 1,
                             child: Text(
                               'ราคา',
-                              style: textStyleReceipt(priceSize58),
+                              style: textStyleReceipt(
+                                  val == 1 ? priceSize58 : priceSize90),
                               textAlign: TextAlign.end,
                             ),
                           ),
@@ -152,28 +171,33 @@ class _ImageRenderState extends State<ImageRender> {
                         width: 350,
                         child: ListView.builder(
                           shrinkWrap: true,
-                          itemCount: 70,
+                          itemCount: 5,
                           itemBuilder: (BuildContext context, int index) {
                             return Row(
                               children: [
                                 Expanded(
                                   flex: 3,
                                   child: Text('product$index',
-                                      style:
-                                          textStyleReceipt(dataReceiptSize58)),
+                                      style: textStyleReceipt(val == 1
+                                          ? dataReceiptSize58
+                                          : dataReceiptSize90)),
                                 ),
                                 Expanded(
                                   flex: 1,
                                   child: Text(
                                     'x$index',
-                                    style: textStyleReceipt(dataReceiptSize58),
+                                    style: textStyleReceipt(val == 1
+                                        ? dataReceiptSize58
+                                        : dataReceiptSize90),
                                   ),
                                 ),
                                 Expanded(
                                   flex: 1,
                                   child: Text(
                                     '$index' + '00',
-                                    style: textStyleReceipt(dataReceiptSize58),
+                                    style: textStyleReceipt(val == 1
+                                        ? dataReceiptSize58
+                                        : dataReceiptSize90),
                                     textAlign: TextAlign.end,
                                   ),
                                 ),
@@ -270,9 +294,16 @@ class _ImageRenderState extends State<ImageRender> {
                         height: 2,
                         color: Colors.black,
                       ),
+                      SizedBox(
+                        height: 3,
+                      ),
                       Container(
-                        height: qrcodeImageheightSize58,
-                        width: qrcodeImagewidthSize58,
+                        height: val == 1
+                            ? qrcodeImageheightSize58
+                            : qrcodeImageheightSize90,
+                        width: val == 1
+                            ? qrcodeImagewidthSize58
+                            : qrcodeImagewidthSize90,
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage('assets/images/QRpayment.jpg'),
